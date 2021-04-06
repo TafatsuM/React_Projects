@@ -1,12 +1,7 @@
 {
-  "name": "react_projects",
+  "name": "react_pro",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/TafatsuM/React_Projects#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TafatsuM/React_Projects.git"
-  },
   "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",
