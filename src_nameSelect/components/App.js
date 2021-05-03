@@ -1,31 +1,45 @@
-import React from 'react';
-import { Select } from './Select';
-import { Name } from './Name';
+import React from "react";
+import { Select } from "./Select";
+import { Name } from "./Name";
+import { names } from "./names";
 
 export class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      name: 'Cornelius',
-    };
+  state = {
+    name: names[0],
+    quote: "",
+    newNames: [],
+  };
 
-    this.changeName = this.changeName.bind(this);
-  }
+  getName = (nameParameter) => {
+    this.setState({ name: nameParameter });
+  };
 
-  changeName(newName) {
-    this.setState({
-      name: newName
-    });
+  getQuote = (quoteParameter) => {
+    this.setState({ quote: quoteParameter });
+  };
+
+  fetchNames = () => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((data) => this.setState({ newNames: data }));
+  };
+
+  componentDidMount() {
+    this.fetchNames();
   }
 
   render() {
+    console.log(this.state.name);
+    console.log(this.state.quote);
     return (
       <div>
-        <Select 
-          onChange={this.changeName} />
-        <Name name={this.state.name}/>
+        <Select
+          getName={this.getName}
+          getQuote={this.getQuote}
+          newNames={this.state.newNames}
+        />
+        <Name name={this.state.name} quote={this.state.quote} />
       </div>
     );
   }
 }
-

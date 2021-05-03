@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Form.css";
 
 class Form extends Component {
   constructor(props) {
@@ -23,21 +24,16 @@ class Form extends Component {
     document.getElementById("myForm").reset();
   };
 
-
-
-
   componentDidUpdate(prevProps, prevState) {
-        
-    console.log('componentdidupdate works')
+    console.log("componentdidupdate works");
     if (this.props.selectedUser !== prevProps.selectedUser) {
-      console.log('setstatte works')
+      console.log("setstatte works");
       this.setState(this.props.selectedUser);
       window.localStorage.setItem(
         "user",
         JSON.stringify(this.props.selectedUser)
       );
     }
-    
   }
 
   cancel = () => {
@@ -54,29 +50,37 @@ class Form extends Component {
     return (
       <div>
         <form id="myForm" onSubmit={this.handleSubmit}>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            defaultValue={selectedUser ? selectedUser.name : ""}
-            onChange={(e) => this.setState({ name: e.target.value })}
-            required
-          />
-          <label htmlFor="job">Job</label>
-          <input
-            type="text"
-            name="job"
-            id="job"
-            defaultValue={selectedUser ? selectedUser.job : ""}
-            onChange={(e) => this.setState({ job: e.target.value })}
-          />
-          <div className="buttons">
-            <button type="submit">
-              {isUpdating ? "Update User" : "Add User"}
-            </button>
-            <div style={{ visibility: isUpdating ? "" : "hidden" }}>
-              <input type="button" value="Cancel" onClick={this.cancel} />
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                class="form-control"
+                defaultValue={selectedUser ? selectedUser.name : ""}
+                onChange={(e) => this.setState({ name: e.target.value })}
+                required
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label htmlFor="job">Job</label>
+              <input
+                type="text"
+                name="job"
+                id="job"
+                class="form-control"
+                defaultValue={selectedUser ? selectedUser.job : ""}
+                onChange={(e) => this.setState({ job: e.target.value })}
+              />
+            </div>
+            <div className="form-group col-md-6 buttons">
+              <button type="submit">
+                {isUpdating ? "Update User" : "Add User"}
+              </button>
+              <div style={{ visibility: isUpdating ? "" : "hidden" }}>
+                <input type="button" value="Cancel" onClick={this.cancel} />
+              </div>
             </div>
           </div>
         </form>

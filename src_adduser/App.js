@@ -36,7 +36,7 @@ class App extends Component {
     //this.setState({users: [...this.state.users, newUser]})
     // this.state.users.push(newUser)
     // this.setState({users: this.state.users})
-
+console.log(Math.floor(Math.random()*4))
     this.setState({ users: [...this.state.users, data] });
   };
 
@@ -58,16 +58,22 @@ class App extends Component {
     this.setState({ isUpdating: true });
   };
 
-
   updateUser=(user, data)=>{
     console.log('update user çalıştı...:')
     //console.log(user, data)
-    const n = this.state.users.findIndex(item => item.name === user.name)
-    let temp_state = [...this.state.users];
-    let temp_element = { ...temp_state[n] };
-    temp_element = data;
-    temp_state[n] = temp_element
-    this.setState({ users: temp_state  });
+    // const n = this.state.users.findIndex(item => item.name === user.name)
+    // let temp_state = [...this.state.users];
+    // let temp_element = { ...temp_state[n] };
+    // temp_element = data;
+    // temp_state[n] = temp_element
+    // this.setState({ users: temp_state  });
+   
+    this.setState({users:
+      this.state.users.map(item => {
+        if (item.name !== user.name) return item;
+        return { ...item, name: data.name, job:data.job };
+      })
+    })
     this.cancelUpdate()
   }
 
@@ -81,7 +87,7 @@ class App extends Component {
     console.log(this.state.users);
     console.log(this.state.selectedUser);
     return (
-      <div className="container">
+      <div className="container" style={{width: "45rem"}}>
         <h1>React List</h1>
         {this.state.isUpdating ? (
           <h2>Update character</h2>

@@ -1,31 +1,42 @@
-import React from 'react';
-import {names} from "./names";
+import React from "react";
+import { names } from "./names";
+import { wishes } from "./wishes";
 
 export class Select extends React.Component {
-  constructor(props) {
-    super(props);
+  handleSelect = (event) => {
+    console.log(event.target.value);
+    this.props.getName(event.target.value);
 
-    this.handleChange = this.handleChange.bind(this);
-  }
+    let random = Math.floor(Math.random() * wishes.length);
 
-  handleChange(e) {
-    const name = e.target.value;
-    this.props.onChange(name);
-  }
+    this.props.getQuote(wishes[random]);
+  };
 
   render() {
     return (
       <div>
         <h1>Pickup a name :</h1>
-        <select
-          id="great-names"
-          onChange={this.handleChange}>
-          {names.map((name, index)=>{
-            return <option key={index} value={name}>{name}</option>
+        <select id="great-names" onChange={this.handleSelect}>
+          {names.map((name, index) => {
+            return (
+              <option key={index} value={name}>
+                {name}
+              </option>
+            );
           })}
           {/* <option value="Cornelius">Cornelius</option>
           <option value="Philomena">Philomena</option>
           <option value="Rhythm">Rhythm</option> */}
+        </select>
+
+        <select id="new-names" onChange={this.handleSelect}>
+          {this.props.newNames.map((item, index) => {
+            return (
+              <option key={index} value={item.name}>
+                {item.name}
+              </option>
+            );
+          })}
         </select>
       </div>
     );

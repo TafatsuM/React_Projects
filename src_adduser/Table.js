@@ -38,7 +38,7 @@ const TableBody = (props) => {
 class Table extends Component {
   render() {
     return (
-      <table>
+      <table class="table table-sm">
         <TableHeader />
         <TableBody
           users={this.props.users}
